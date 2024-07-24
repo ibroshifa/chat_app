@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "7559726379",
+    "project_id": "chatapp-b1d59",
+    "storage_bucket": "chatapp-b1d59.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:7559726379:android:f92cc23b8e7857c1c5b16e",
+        "android_client_info": {
+          "package_name": "com.sumeya.chat_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlit45aOD11olvHzo6KdICpbjKdV-qm7M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
