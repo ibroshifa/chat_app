@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:chat_app/models/message_model.dart';
 import 'package:chat_app/models/user_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 import 'chat_state.dart';
 import '../repositories/chat_repository.dart';
@@ -20,11 +21,11 @@ class ChatCubit extends Cubit<ChatState> {
     });
   }
 
-  void sendMessage(Message msg) {
+  void sendMessage(MessageModel msg) {
     chatRepository.sendMessage(msg);
   }
 
-  void sendImage(File file, User receiver) {
+  void sendImage(XFile file, User receiver) {
     chatRepository.sendImageMessage(file, currentUser, receiver);
   }
 }

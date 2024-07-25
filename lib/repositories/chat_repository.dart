@@ -4,6 +4,9 @@ import 'package:chat_app/models/message_model.dart';
 import 'package:chat_app/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
@@ -11,7 +14,7 @@ class ChatRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
-  Stream<List<Message>> getMessages() {
+  Stream<List<MessageModel>> getMessages() {
     return _firestore
         .collection('messagess')
         //  .orderBy('createdAt')
@@ -19,12 +22,12 @@ class ChatRepository {
         .map((snapshot) {
       return snapshot.docs.map((doc) {
         final data = doc.data();
-        return Message.fromJson(data);
+        return MessageModel.fromJson(data);
       }).toList();
     });
   }
 
-  Future<void> sendMessage(Message message) async {
+  Future<void> sendMessage(MessageModel message) async {
     await _firestore.collection('messagess').add(message.toJson());
   }
 
@@ -34,8 +37,23 @@ class ChatRepository {
     return await ref.getDownloadURL();
   }
 
-  Future<void> sendImageMessage(File file, User sender, User receiver) async {
-    final imageUrl = await uploadImage(file);
+  Future<void> sendImageMessage(
+      XFile result, User sender, User receiver) async {
+    final imageUrl = await uploadImage(File(result.path));
+
+    final bytes = await result.readAsBytes();
+    final image = await decodeImageFromList(bytes);
+
+    final message = types.ImageMessage(
+      author: types.User(id: sender.id, firstName: sender.name),
+      createdAt: DateTime.now().millisecondsSinceEpoch,
+      height: image.height.toDouble(),
+      id: Uuid().v4(),
+      name: result.name,
+      size: bytes.length,
+      uri: imageUrl,
+      width: image.width.toDouble(),
+    );
     // final message = {
     //   'id': Uuid().v4(),
     //   'authorId': sender.id,
@@ -44,14 +62,9 @@ class ChatRepository {
     //   'imageUrl': imageUrl,
     //   'type': 'image',
     // };
-//  final message = types.TextMessage(
-//                                 id: Uuid().v4(),
-//                                 author: types.User(
-//                                     id: sender.id, firstName: se.name),
-//                                 createdAt:
-//                                     DateTime.now().millisecondsSinceEpoch,
-//                                 text: partialText.text,
-//                               )
-//     await _firestore.collection('messagess').add(Message(message: message ,user: receiver).toJson());
+
+    await _firestore
+        .collection('messagess')
+        .add(MessageModel(message: message, user: receiver).toJson());
   }
 }

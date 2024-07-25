@@ -1,11 +1,11 @@
 import 'package:chat_app/models/user_model.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
-class Message {
-  final types.TextMessage message;
+class MessageModel {
+  final types.Message message;
   final User user;
 
-  Message({required this.message, required this.user});
+  MessageModel({required this.message, required this.user});
   Map<String, dynamic> toJson() {
     return {
       'message': message.toJson(), // Assuming TextMessage has toJson method
@@ -14,9 +14,9 @@ class Message {
   }
 
   // Create a Message object from a Map object
-  factory Message.fromJson(Map<String, dynamic> json) {
-    return Message(
-      message: types.TextMessage.fromJson(
+  factory MessageModel.fromJson(Map<String, dynamic> json) {
+    return MessageModel(
+      message: types.Message.fromJson(
           json['message']), // Assuming TextMessage has fromJson method
       user: User.fromJson(json['user']),
     );
