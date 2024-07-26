@@ -32,14 +32,17 @@ class _TimeCounterState extends State<TimeCounter> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      //  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
         color: Color(0xff1d1c21),
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Text(
-        formatDuration(_recordingDuration),
-        style: TextStyle(color: Colors.white, fontSize: 18),
+      child: TextButton(
+        child: Text(
+          formatDuration(_recordingDuration),
+          style: TextStyle(color: Colors.white, fontSize: 15),
+        ),
+        onPressed: () {},
       ),
     );
   }

@@ -18,8 +18,8 @@ import 'package:voice_message_package/voice_message_package.dart';
 import 'dart:io';
 
 class ChatScreen extends StatefulWidget {
-  final User user;
-  final User receiver;
+  final ChatUser user;
+  final ChatUser receiver;
 
   ChatScreen({required this.user, required this.receiver});
 
@@ -45,7 +45,7 @@ class _ChatScreenState extends State<ChatScreen> {
           ChatCubit(currentUser: widget.user, chatRepository: ChatRepository())
             ..loadMessages(),
       child: Scaffold(
-        appBar: AppBar(title: Text('${widget.receiver.name}')),
+        appBar: AppBar(title: Text('${widget.receiver.firstName}')),
         body: Column(
           children: [
             Expanded(
@@ -67,10 +67,11 @@ class _ChatScreenState extends State<ChatScreen> {
                     return Stack(
                       children: [
                         Chat(
-                          listBottomWidget: Icon(
-                            Icons.delete,
+                          theme: const DefaultChatTheme(
+                              attachmentButtonIcon: Icon(
+                            Icons.image,
                             color: Colors.white,
-                          ),
+                          )),
                           audioMessageBuilder: (types.AudioMessage audioMessage,
                               {required int messageWidth}) {
                             final isMine =
@@ -97,7 +98,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                       id: Uuid().v4(),
                                       author: types.User(
                                           id: widget.user.id,
-                                          firstName: widget.user.name),
+                                          firstName: widget.user.firstName),
                                       createdAt:
                                           DateTime.now().millisecondsSinceEpoch,
                                       text: partialText.text,
@@ -111,7 +112,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         ),
                         Positioned(
                           bottom: 10,
-                          right: 10,
+                          right: 40,
                           child: IconButton(
                             color: Colors.white,
                             icon: Icon(_isRecording ? Icons.stop : Icons.mic),
@@ -145,13 +146,15 @@ class _ChatScreenState extends State<ChatScreen> {
                                   child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceAround,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         TextButton(
                                           child: Text(
                                             'cancel',
                                             style: TextStyle(
                                                 color: Colors.white,
-                                                fontSize: 14),
+                                                fontSize: 17),
                                           ),
                                           onPressed: () async {
                                             await stopRecording();
@@ -239,7 +242,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void sendAudioMessage(String audioUrl, int duration, BuildContext contx) {
     final message = types.AudioMessage(
-        author: types.User(id: widget.user.id, firstName: widget.user.name),
+        author:
+            types.User(id: widget.user.id, firstName: widget.user.firstName),
         createdAt: DateTime.now().millisecondsSinceEpoch,
         id: Uuid().v4(),
         uri: audioUrl,

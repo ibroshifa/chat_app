@@ -38,14 +38,14 @@ class ChatRepository {
   }
 
   Future<void> sendImageMessage(
-      XFile result, User sender, User receiver) async {
+      XFile result, ChatUser sender, ChatUser receiver) async {
     final imageUrl = await uploadImage(File(result.path));
 
     final bytes = await result.readAsBytes();
     final image = await decodeImageFromList(bytes);
 
     final message = types.ImageMessage(
-      author: types.User(id: sender.id, firstName: sender.name),
+      author: types.User(id: sender.id, firstName: sender.firstName),
       createdAt: DateTime.now().millisecondsSinceEpoch,
       height: image.height.toDouble(),
       id: Uuid().v4(),

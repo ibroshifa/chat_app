@@ -10,7 +10,7 @@ import '../repositories/chat_repository.dart';
 
 class ChatCubit extends Cubit<ChatState> {
   final ChatRepository chatRepository;
-  final User currentUser;
+  final ChatUser currentUser;
 
   ChatCubit({required this.currentUser, required this.chatRepository})
       : super(ChatInitial());
@@ -25,7 +25,7 @@ class ChatCubit extends Cubit<ChatState> {
     chatRepository.sendMessage(msg);
   }
 
-  void sendImage(XFile file, User receiver) {
+  void sendImage(XFile file, ChatUser receiver) {
     chatRepository.sendImageMessage(file, currentUser, receiver);
   }
 }

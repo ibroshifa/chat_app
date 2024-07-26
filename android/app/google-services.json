@@ -12,7 +12,20 @@
           "package_name": "com.sumeya.chat_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "7559726379-b4bsi0pibp95ffi76ki2m92o8l3bjfni.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sumeya.chat_app",
+            "certificate_hash": "219398ef0e04fc178cd8e396fcf37de4671b0995"
+          }
+        },
+        {
+          "client_id": "7559726379-2r5d8otp592ojneli40d3nimj6el2f5d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDlit45aOD11olvHzo6KdICpbjKdV-qm7M"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "7559726379-2r5d8otp592ojneli40d3nimj6el2f5d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

@@ -1,20 +1,45 @@
-class User {
-  final String id;
-  final String name;
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
-  User({required this.id, required this.name});
+class ChatUser {
+  final String email;
+  String id;
+  String firstName;
+  String lastName;
+  String? avatarUrl;
+
+  ChatUser(
+      {required this.id,
+      required this.email,
+      required this.firstName,
+      required this.lastName,
+      required this.avatarUrl});
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'name': name,
+      'email': email,
+      'firstName': firstName,
+      'lastName': lastName,
+      'avatarUrl': avatarUrl,
     };
   }
 
-  // Create a User object from a Map object
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-      id: json['id'] as String,
-      name: json['name'] as String,
+  factory ChatUser.fromJson(Map<String, dynamic> map) {
+    return ChatUser(
+      id: map['id'],
+      email: map['email'],
+      firstName: map['firstName'],
+      lastName: map['lastName'],
+      avatarUrl: map['avatarUrl'],
+    );
+  }
+
+  factory ChatUser.empty() {
+    return ChatUser(
+      id: '',
+      email: '',
+      firstName: '',
+      lastName: '',
+      avatarUrl: '',
     );
   }
 }
@@ -28,3 +53,51 @@ class User {
 //       storageBucket: "chatapp-b1d59.appspot.com", 
 //     ),
 //   );
+
+
+// class ChatUsers  {
+
+//    ChatUsers({
+//     required this. id,
+//     required this.email,
+//     required this. firstName,
+//     required this. lastName,
+//     required this.avatarUrl
+    
+//   }); 
+
+//   final String email;
+//     String id;
+//      String firstName;
+//      String lastName;
+//      String? avatarUrl,
+ 
+
+//   // Convert ChatUser to a map
+//   Map<String, dynamic> toMap() {
+//     return {
+//       'id': id,
+//       'email': email,
+//       'firstName': firstName,
+//       'lastName': lastName,
+//       'avatarUrl': imageUrl,
+//     };
+//   }
+
+//   // Create a ChatUser from a map
+// //   factory ChatUser.fromMap(Map<String, dynamic> map) {
+// //     return ChatUser(
+// //       id: map['id'],
+// //       email: map['email'],
+// //       firstName: map['firstName'],
+// //       lastName: map['lastName'],
+// //       avatarUrl: map['avatarUrl'],
+// //     );
+// //   }
+  
+// //   @override
+// //   types.User copyWith({int? createdAt, String? firstName, String? id, String? imageUrl, String? lastName, int? lastSeen, Map<String, dynamic>? metadata, types.Role? role, int? updatedAt}) {
+// //     // TODO: implement copyWith
+// //     throw UnimplementedError();
+// //   }
+// // }
